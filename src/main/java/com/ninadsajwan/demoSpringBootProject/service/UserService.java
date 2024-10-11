@@ -5,10 +5,13 @@ import com.ninadsajwan.demoSpringBootProject.dto.DeleteUserDTO;
 import com.ninadsajwan.demoSpringBootProject.dto.UpdateUserDTO;
 import com.ninadsajwan.demoSpringBootProject.entity.UserEntity;
 import com.ninadsajwan.demoSpringBootProject.repository.UserRepository;
+import com.ninadsajwan.demoSpringBootProject.utils.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -16,11 +19,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<UserEntity> getAllTopics(){
-        return (List<UserEntity>)userRepository.findAll();
+    public List<UserEntity> getAllTopics() {
+        return (List<UserEntity>) userRepository.findAll();
     }
 
-    public void addUser(CreateUserDTO user){
+    public void addUser(CreateUserDTO user) {
         String name = user.getName();
         String email = user.getEmail();
         String contact = user.getContact();
@@ -30,32 +33,24 @@ public class UserService {
         userRepository.save(createdUser);
     }
 
-    public void updateUser(UpdateUserDTO user){
-        String name = user.getName();
-        String email = user.getEmail();
-        String contact = user.getContact();
-        Boolean status = user.getStatus();
+    public void updateUser(UUID id, UpdateUserDTO updatedUser) {
 
-        UserEntity existingUser = userRepository.findByEmail(email);
+        Optional<UserEntity> existingUser = userRepository.findById(id);
 
-        if(existingUser != null){
-            if(name != null) existingUser.setName(name);
-
-            if(email != null) existingUser.setEmail(email);
-
-            if(contact != null) existingUser.setContact(contact);
-
-            if(status != null) existingUser.setStatus(status);
-
-            UserEntity updatedUser = userRepository.save(existingUser);
+        if (existingUser.isPresent()) {
+            UserEntity userToUpdate = existingUser.get();
+            UserMapper.INSTANCE.UpdateUser(updatedUser, userToUpdate);
+            UserEntity user = userRepository.save(userToUpdate);
         }
     }
 
-    public void deleteUser(DeleteUserDTO user){
-        String email = user.getEmail();
+    public void deleteUser(UUID id) {
 
-        UserEntity existingUser = userRepository.findByEmail(email);
+        Optional<UserEntity> existingUser = userRepository.findById(id);
 
-        userRepository.delete(existingUser);
+        if (existingUser.isPresent()) {
+            UserEntity user = existingUser.get();
+            userRepository.delete(user);
+        }
     }
 }

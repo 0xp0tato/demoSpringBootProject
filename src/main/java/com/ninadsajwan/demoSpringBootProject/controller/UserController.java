@@ -20,25 +20,23 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<UserEntity> getAllUsers(){
+    public List<UserEntity> getAllUsers() {
         return userService.getAllTopics();
 
     }
 
     @PostMapping
-    public void createUser(@Valid @RequestBody CreateUserDTO user){
+    public void createUser(@Valid @RequestBody CreateUserDTO user) {
         userService.addUser(user);
     }
 
     @PatchMapping
     public void updateUser(@RequestParam UUID id, @RequestBody UpdateUserDTO user) {
-        System.out.println("-------->" + id);
-        userService.updateUser(user);
+        userService.updateUser(id, user);
     }
 
     @DeleteMapping
-    public void deleteUser(@RequestParam UUID id, @RequestBody DeleteUserDTO user){
-        System.out.println("---------->>" + id);
-        userService.deleteUser(user);
+    public void deleteUser(@RequestParam UUID id) {
+        userService.deleteUser(id);
     }
 }
