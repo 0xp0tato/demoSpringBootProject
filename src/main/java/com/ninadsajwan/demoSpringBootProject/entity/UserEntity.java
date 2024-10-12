@@ -1,9 +1,11 @@
 package com.ninadsajwan.demoSpringBootProject.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.UUID;
@@ -26,12 +28,7 @@ public class UserEntity {
 
     private String contact;
 
+    @NotNull
+    @ColumnDefault("true")
     private Boolean status;
-
-    public UserEntity(String name, String email, String contact) {
-        this.name = name;
-        this.email = email;
-        this.contact = contact;
-        this.status = true;
-    }
 }

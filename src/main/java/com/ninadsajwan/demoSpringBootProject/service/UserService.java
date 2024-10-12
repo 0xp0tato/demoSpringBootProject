@@ -24,13 +24,8 @@ public class UserService {
     }
 
     public void addUser(CreateUserDTO user) {
-        String name = user.getName();
-        String email = user.getEmail();
-        String contact = user.getContact();
-
-        UserEntity createdUser = new UserEntity(name, email, contact);
-
-        userRepository.save(createdUser);
+        UserEntity newUser = UserMapper.INSTANCE.CreateUser(user);
+        userRepository.save(newUser);
     }
 
     public void updateUser(UUID id, UpdateUserDTO updatedUser) {

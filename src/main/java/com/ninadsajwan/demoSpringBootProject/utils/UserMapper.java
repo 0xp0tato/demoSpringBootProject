@@ -1,5 +1,6 @@
 package com.ninadsajwan.demoSpringBootProject.utils;
 
+import com.ninadsajwan.demoSpringBootProject.dto.CreateUserDTO;
 import com.ninadsajwan.demoSpringBootProject.dto.UpdateUserDTO;
 import com.ninadsajwan.demoSpringBootProject.entity.UserEntity;
 import org.mapstruct.Mapper;
@@ -13,4 +14,7 @@ public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     void UpdateUser(UpdateUserDTO updateUserDTO, @MappingTarget UserEntity user);
+
+    @Mapping(target = "status", constant = "true")
+    UserEntity CreateUser(CreateUserDTO newUser);
 }
