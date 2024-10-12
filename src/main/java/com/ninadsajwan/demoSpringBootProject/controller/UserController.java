@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PatchMapping
-    public void updateUser(@RequestParam UUID id, @RequestBody UpdateUserDTO user) {
+    public void updateUser(@RequestParam UUID id, @Valid @RequestBody UpdateUserDTO user) {
         userService.updateUser(id, user);
     }
 
