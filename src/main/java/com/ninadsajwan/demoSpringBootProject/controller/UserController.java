@@ -22,12 +22,11 @@ public class UserController {
     @GetMapping
     public List<UserEntity> getAllUsers() {
         return userService.getAllTopics();
-
     }
 
     @PostMapping
-    public void createUser(@Valid @RequestBody CreateUserDTO user) {
-        userService.addUser(user);
+    public UserEntity createUser(@Valid @RequestBody CreateUserDTO user) {
+        return userService.addUser(user);
     }
 
     @PatchMapping

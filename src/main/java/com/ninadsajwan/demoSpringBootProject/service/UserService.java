@@ -23,9 +23,10 @@ public class UserService {
         return (List<UserEntity>) userRepository.findAll();
     }
 
-    public void addUser(CreateUserDTO user) {
+    public UserEntity addUser(CreateUserDTO user) {
         UserEntity newUser = UserMapper.INSTANCE.CreateUser(user);
         userRepository.save(newUser);
+        return newUser;
     }
 
     public void updateUser(UUID id, UpdateUserDTO updatedUser) {
