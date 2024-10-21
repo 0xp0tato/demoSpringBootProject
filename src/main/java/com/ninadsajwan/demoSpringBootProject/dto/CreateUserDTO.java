@@ -21,3 +21,6 @@ public class CreateUserDTO {
     @NotBlank(message = "Contact cannot be blank")
     private String contact;
 }
+
+
+

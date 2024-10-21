@@ -2,6 +2,7 @@ package com.ninadsajwan.demoSpringBootProject.utils;
 
 import com.ninadsajwan.demoSpringBootProject.dto.CreateUserDTO;
 import com.ninadsajwan.demoSpringBootProject.dto.UpdateUserDTO;
+import com.ninadsajwan.demoSpringBootProject.dto.response.CreateUserResponseDTO;
 import com.ninadsajwan.demoSpringBootProject.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -18,4 +19,6 @@ public interface UserMapper {
 
     @Mapping(target = "status", constant = "true")
     UserEntity CreateUser(CreateUserDTO newUser);
+
+    CreateUserResponseDTO CreateUserSuccess(UserEntity createdUser);
 }

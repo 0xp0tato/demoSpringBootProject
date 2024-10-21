@@ -1,8 +1,8 @@
 package com.ninadsajwan.demoSpringBootProject.controller;
 
 import com.ninadsajwan.demoSpringBootProject.dto.CreateUserDTO;
-import com.ninadsajwan.demoSpringBootProject.dto.DeleteUserDTO;
 import com.ninadsajwan.demoSpringBootProject.dto.UpdateUserDTO;
+import com.ninadsajwan.demoSpringBootProject.dto.response.CreateUserResponseDTO;
 import com.ninadsajwan.demoSpringBootProject.entity.UserEntity;
 import com.ninadsajwan.demoSpringBootProject.service.UserService;
 import jakarta.validation.Valid;
@@ -30,18 +30,19 @@ public class UserController {
     }
 
     @PostMapping
-    public UserEntity createUser(@Valid @RequestBody CreateUserDTO user) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public CreateUserResponseDTO createUser(@Valid @RequestBody CreateUserDTO user) {
         return userService.addUser(user);
     }
 
     @PatchMapping
-    public void updateUser(@RequestParam UUID id, @Valid @RequestBody UpdateUserDTO user) {
-        userService.updateUser(id, user);
+    public UserEntity updateUser(@RequestParam UUID id, @Valid @RequestBody UpdateUserDTO user) {
+        return userService.updateUser(id, user);
     }
 
     @DeleteMapping
-    public void deleteUser(@RequestParam UUID id) {
-        userService.deleteUser(id);
+    public UserEntity deleteUser(@RequestParam UUID id) {
+        return userService.deleteUser(id);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
